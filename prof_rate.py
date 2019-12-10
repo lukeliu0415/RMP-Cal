@@ -20,8 +20,10 @@ def get_course_prof(url):
     info = soup.find(class_ = "handlebarData theme_is_whitehot")['data-json']
     file = json.loads(info)
 
-    # print(file['meetings'][0]['assignedInstructors'][0]['instructor']['names'][0]['formattedName'])
-    return file['meetings'][0]['assignedInstructors'][0]['instructor']['names'][0]['formattedName']
+    name_data = file['meetings'][0]['assignedInstructors'][0]['instructor']['names'][0]
+    given_name = name_data['givenName']
+    family_name = name_data['familyName']
+    return given_name + " " + family_name
 
 def get_prof_url(teacher_name):
     teacher = teacher_name

@@ -7,4 +7,7 @@ soup = BeautifulSoup(page.content, 'html.parser')
 info = soup.find(class_ = "handlebarData theme_is_whitehot")['data-json']
 file = json.loads(info)
 
-print(file['meetings'][0]['assignedInstructors'][0]['instructor']['names'][0]['formattedName'])
+name_data = file['meetings'][0]['assignedInstructors'][0]['instructor']['names'][0]
+given_name = name_data['givenName']
+family_name = name_data['familyName']
+print(given_name + " " + family_name)
