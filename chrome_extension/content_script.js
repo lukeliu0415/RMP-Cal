@@ -3,8 +3,8 @@
 /*
  * RateMyProfessor Chrome Extension
  * Not for public distribution
- * Dev: Jonathan Cady
- * Version: 1.2
+ * Dev: Luke Liu
+ * Version: Development
  */
 
 checkDivs();
@@ -22,14 +22,30 @@ async function checkDivs() {
 		div = document.querySelector("div.detail-instructors");
 		count++;
 	}
-	let professor_element = div.querySelectorAll("span")[1];
-	console.log(professor_element.innerHTML);
+
+	let professor_elements = div.querySelectorAll("span");
+
+	// for (let i = 1; i < professor_elements.length; i++) {
+	// 	let professor_element = professor_elements[i];
+	// 	let professor_name = professor_element.innerHTML;
+	// 	professor_element.innerHTML = professor_name + " (Rating: Loading)";
+	// }
 	
-	let url = 'https://rmpcal-backend.herokuapp.com/?url=' + window.location.href;
+	// let url = 'https://rmpcal-backend.herokuapp.com/?url=' + window.location.href;
+	let url = 'http://127.0.0.1:8000/?url=' + window.location.href;
 	fetch(url).then(function (response) {
 		return response.json();
 	}).then(function (myJson) {
-		professor_element.innerHTML = professor_element.innerHTML + " (Rating: " + myJson + ")";
+		console.log(myJson);
+		for (let i = 1; i < professor_elements.length; i++) {
+			let professor_element = professor_elements[i];
+			let professor_name = professor_element.innerHTML;
+			if (myJson[i-1] === -1) {
+				professor_element.innerHTML = professor_name + " (Rating: unavailable)";
+			} else {
+				professor_element.innerHTML = professor_name + " (Rating: " + myJson[i-1] + ")";
+			}
+		}
 	});
 
 	// if (div != null) {
