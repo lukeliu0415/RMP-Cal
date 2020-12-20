@@ -1,0 +1,29 @@
+{
+  "name": "UC Berkeley Rate My Prof",
+  "version": "1.0",
+  "description": "Shows Rate My Prof information on Berkeley course catalog",
+  "permissions": [
+    "activeTab",
+    "declarativeContent"
+  ],
+  "author": "Luke Liu, Jonathan Cady",
+  "page_action": {
+    "default_title": "Prof scores will show up automatically!"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://classes.berkeley.edu/content/*"
+      ],
+      "js": [
+        "content_script.js",
+        "jquery-3.3.1.min.js"
+      ],
+      "css": [
+        "style.css"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "manifest_version": 2
+}
