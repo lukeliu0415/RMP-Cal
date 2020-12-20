@@ -7,9 +7,8 @@ name = "pypi"
 flask = "*"
 gunicorn = "*"
 requests = "*"
-json = "*"
 bs4 = "*"
-flask_cors = "*"
+flask-cors = "*"
 
 [dev-packages]
 
