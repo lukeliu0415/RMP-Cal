@@ -50,4 +50,4 @@ def main_prof_rate(course_url):
 
 # main_prof_rate('https://classes.berkeley.edu/content/2021-spring-compsci-61b-001-lec-001')
 
-app.run(port=8000)
+# app.run(port=8000)
