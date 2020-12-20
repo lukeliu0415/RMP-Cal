@@ -25,7 +25,7 @@ async function checkDivs() {
 	let professor_element = div.querySelectorAll("span")[1];
 	console.log(professor_element.innerHTML);
 	
-	let url = 'http://localhost:8000/?url=' + window.location.href;
+	let url = 'https://rmpcal-backend.herokuapp.com/?url=' + window.location.href;
 	fetch(url).then(function (response) {
 		return response.json();
 	}).then(function (myJson) {
