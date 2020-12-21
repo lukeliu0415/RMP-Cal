@@ -22,6 +22,10 @@ async function checkDivs() {
 		div = document.querySelector("div.detail-instructors");
 		count++;
 	}
+	if (div == null) {
+		console.log('No professors found');
+		return;
+	}
 
 	let professor_elements = div.querySelectorAll("span");
 
@@ -31,21 +35,35 @@ async function checkDivs() {
 	// 	professor_element.innerHTML = professor_name + " (Rating: Loading)";
 	// }
 	
-	// let url = 'https://rmpcal-backend.herokuapp.com/?url=' + window.location.href;
-	let url = 'http://127.0.0.1:8000/?url=' + window.location.href;
+	// let url = 'https://rmpcal-backend.herokuapp.com/ratings/?url=' + window.location.href;
+	let url = 'http://127.0.0.1:8000/ratings/?url=' + window.location.href;
 	fetch(url).then(function (response) {
 		return response.json();
-	}).then(function (myJson) {
-		console.log(myJson);
+	}).then((json) => {
 		for (let i = 1; i < professor_elements.length; i++) {
 			let professor_element = professor_elements[i];
 			let professor_name = professor_element.innerHTML;
-			if (myJson[i-1] === -1) {
+			if (json[i-1] === -1) {
 				professor_element.innerHTML = professor_name + " (Rating: unavailable)";
 			} else {
-				professor_element.innerHTML = professor_name + " (Rating: " + myJson[i-1] + ")";
+				professor_element.innerHTML = professor_name + " (Rating: " + json[i-1] + ")";
 			}
 		}
+	}).catch((err) => {
+		console.log(err);
+	});
+
+	// let url = 'https://rmpcal-backend.herokuapp.com/grades/?url=' + window.location.href;
+	url = 'http://127.0.0.1:8000/grades/?url=' + window.location.href;
+	fetch(url).then(function (response) {
+		return response.json();
+	}).then((json) => {
+		let div = document.querySelector("div.detail-class-units");
+		let tag = document.createElement("p");
+		tag.innerHTML = "Average GPA: " + json;
+		div.appendChild(tag);
+	}).catch((err) => {
+		console.log(err);
 	});
 
 	// if (div != null) {

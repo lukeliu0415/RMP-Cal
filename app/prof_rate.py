@@ -2,28 +2,12 @@ import requests
 import json
 from bs4 import BeautifulSoup
 
-import flask
-from flask import jsonify, request
-from flask_cors import CORS, cross_origin
-
-app = flask.Flask(__name__)
-app.config["DEBUG"] = True
-
-@app.route('/', methods=['GET'])
-@cross_origin()
-def home():
-    if 'url' in request.args:
-        url = request.args['url']
-        return jsonify(main_prof_rate(url))
-    else:
-        return "Error: No url field provided. Please specify an url."
-
 def get_rating(url):
     try:
         r = requests.get(url)
         professors = json.loads(r.text[5:-1])
         rating = professors['response']['docs'][0]['averageratingscore_rf']
-    except IndexError:
+    except:
         rating = -1
     return rating
 
@@ -48,7 +32,6 @@ def main_prof_rate(course_url):
     ratings = []
 
     for prof in profs:
-        print(prof)
         prof_url = 'https://solr-aws-elb-production.ratemyprofessors.com//solr/rmp/select/?solrformat=true&rows=20&wt=json&json.wrf=noCB&callback=noCB&q=' + prof + '+AND+schoolid_s%3A1072&defType=edismax&qf=teacherfirstname_t%5E2000+teacherlastname_t%5E2000+teacherfullname_t%5E2000+autosuggest&bf=pow(total_number_of_ratings_i%2C2.1)&sort=total_number_of_ratings_i+desc&siteName=rmp&rows=20&start=0&fl=pk_id+teacherfirstname_t+teacherlastname_t+total_number_of_ratings_i+averageratingscore_rf+schoolid_s&fq='
         prof_rating = get_rating(prof_url)
         if prof_rating == -1:
@@ -59,5 +42,3 @@ def main_prof_rate(course_url):
     return ratings
 
 # main_prof_rate('https://classes.berkeley.edu/content/2021-spring-compsci-61b-001-lec-001')
-
-app.run(port=8000)
