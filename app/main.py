@@ -1,12 +1,11 @@
 import flask
 from flask import jsonify, request
 from flask_cors import CORS, cross_origin
+from app.prof_rate import main_prof_rate
+from app.grade import main_grade
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
-
-from prof_rate import main_prof_rate
-from grade import main_grade
 
 @app.route('/', methods=['GET'])
 @cross_origin()
