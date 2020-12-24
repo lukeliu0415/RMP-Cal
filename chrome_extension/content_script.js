@@ -35,8 +35,8 @@ async function checkDivs() {
 	// 	professor_element.innerHTML = professor_name + " (Rating: Loading)";
 	// }
 	
-	// let url = 'https://rmpcal-backend.herokuapp.com/ratings/?url=' + window.location.href;
-	let url = 'http://127.0.0.1:8000/ratings/?url=' + window.location.href;
+	let url = 'https://rmpcal-backend.herokuapp.com/ratings/?url=' + window.location.href;
+	// let url = 'http://127.0.0.1:8000/ratings/?url=' + window.location.href;
 	fetch(url).then(function (response) {
 		return response.json();
 	}).then((json) => {
@@ -53,8 +53,8 @@ async function checkDivs() {
 		console.log(err);
 	});
 
-	// let url = 'https://rmpcal-backend.herokuapp.com/grades/?url=' + window.location.href;
-	url = 'http://127.0.0.1:8000/grades/?url=' + window.location.href;
+	url = 'https://rmpcal-backend.herokuapp.com/grades/?url=' + window.location.href;
+	// url = 'http://127.0.0.1:8000/grades/?url=' + window.location.href;
 	fetch(url).then(function (response) {
 		return response.json();
 	}).then((json) => {
