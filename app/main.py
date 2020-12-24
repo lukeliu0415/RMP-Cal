@@ -30,4 +30,4 @@ def getGrade():
     else:
         return "Error: No url field provided. Please specify an url."
 
-app.run(port=8000)
+# app.run(port=8000)
